@@ -2,7 +2,7 @@
 
 namespace contest.submission
 {
-    class SearchState
+    public class SearchState
     {
         public decimal ActualMax { get; set; }
         public decimal ActualMin { get; set; }

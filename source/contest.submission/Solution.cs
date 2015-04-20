@@ -21,7 +21,7 @@ namespace contest.submission
                 SendResult(_interviewee.FoundFigure());
 
                 //After initial question it's wise to change the strategy
-                _interviewee.SetSearchStrategy(new DummySearch());
+                _interviewee.SetSearchStrategy(new DummyBinarySearch());
             }
             else
             {

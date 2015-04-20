@@ -2,7 +2,7 @@
 
 namespace contest.submission
 {
-    internal abstract class SearchStrategy
+    public abstract class SearchStrategy
     {
         public abstract SearchState Search(SearchState searchState, Rating actualRating);
     }

@@ -2,7 +2,7 @@
 
 namespace contest.submission
 {
-    internal class DummySearch : SearchStrategy
+    public class DummyBinarySearch : SearchStrategy
     {
         private static decimal ActualEstimatedFigure(SearchState searchState)
         {

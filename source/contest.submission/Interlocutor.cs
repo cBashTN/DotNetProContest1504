@@ -2,7 +2,7 @@
 
 namespace contest.submission
 {
-    internal class Interlocutor
+    public class Interlocutor
     {
         private readonly SearchState _searchState = new SearchState();
         private SearchStrategy _sortstrategy = new IsItZeroSearch();
