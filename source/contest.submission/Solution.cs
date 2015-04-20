@@ -6,27 +6,28 @@ namespace contest.submission
     [Serializable]
     public class Solution : IDnp1504Solution
     {
-        private decimal _actualMax;
-        private decimal _actualMin;
-
-        private decimal ActualEstimatedFigure
-        {
-            get{ return decimal.Divide(_actualMax, 2m) + decimal.Divide(_actualMin, 2m);}
-        }
+        private readonly Interlocutor _interviewee = new Interlocutor();
+        private bool _isFirstTime = true;
 
         public void Process(Rating rating)
         {
-            if (rating == Rating.Start)
+            if (_isFirstTime)
             {
-                _actualMax = decimal.MaxValue;
-                _actualMin = decimal.MinValue;
+                _isFirstTime = false;
+
+                // Check if its zero
+                _interviewee.SetSearchStrategy(new IsItZeroSearch());
+                _interviewee.SearchFigure(rating);
+                SendResult(_interviewee.FoundFigure());
+
+                //After initial question it's wise to change the strategy
+                _interviewee.SetSearchStrategy(new DummySearch());
             }
             else
             {
-                if (rating == Rating.ToHigh) _actualMax = ActualEstimatedFigure;
-                if (rating == Rating.ToLow)  _actualMin = ActualEstimatedFigure;
+                _interviewee.SearchFigure(rating);
+                SendResult(_interviewee.FoundFigure());
             }
-            SendResult(ActualEstimatedFigure);
         }
 
         public event Action<decimal> SendResult;

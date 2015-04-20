@@ -45,6 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Strategies\DummySearch.cs" />
+    <Compile Include="Interlocutor.cs" />
+    <Compile Include="Strategies\IsItZeroSearch.cs" />
+    <Compile Include="SearchState.cs" />
+    <Compile Include="SearchStrategy.cs" />
     <Compile Include="Solution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
