@@ -31,7 +31,7 @@ namespace contest.host
       sw.Start();
       sut.Process(Rating.Start);
 
-      for (int i = 0; i < numberofsteps; i++)
+      for (int i = 1; i < numberofsteps; i++)
       {
         var rating = this.CheckValue(estimatedfigure);
 
@@ -39,8 +39,7 @@ namespace contest.host
         {
           Status(new Prüfungsstatus() { Statusmeldung = "**** Hurra: Zahl gefunden ***** " });
           break;
-        };
-
+        }
 
         sut.Process(rating);
       }
@@ -50,8 +49,9 @@ namespace contest.host
       Status(new Prüfungsstatus() { Statusmeldung = "Geratene Zahl: " + estimatedfigure });
 
       Status(new Prüfungsstatus() { Statusmeldung = "Differenz: " + Math.Abs(secretfigure - estimatedfigure)});
-
-      Ende(new Prüfungsende() { Dauer = sw.Elapsed });
+      Status(new Prüfungsstatus() { Statusmeldung = "Mit Anzahl Schritte: " + numberofsteps });
+      
+        Ende(new Prüfungsende() { Dauer = sw.Elapsed });
     }
 
     public event Action<Prüfungsanfang> Anfang;

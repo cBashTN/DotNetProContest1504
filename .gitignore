@@ -38,6 +38,26 @@ $RECYCLE.BIN/
 # Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
+
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Test and Diagnosis artifacts
+*.psess
+*.vsp
+*.pdb
+
+# Build artifacts
+*.cache
+*Temp*Generated*
+
+#solution user options
+*.suo
+
+# FileListAbs
+*.FileListAbsolute.txt
