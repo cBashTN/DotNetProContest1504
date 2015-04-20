@@ -3,18 +3,32 @@ using contest.submission.contract;
 
 namespace contest.submission
 {
-  [Serializable]
-  public class Solution : IDnp1504Solution
-  {
-    decimal estimatedfigure = 0.918237128344444444m;
-    public void Process(Rating rating)
+    [Serializable]
+    public class Solution : IDnp1504Solution
     {
-      if (rating == Rating.ToHigh) estimatedfigure = estimatedfigure * 0.99m;
-      if (rating == Rating.ToLow) estimatedfigure = estimatedfigure * 1.1m;
-      
-      SendResult(estimatedfigure);
-    }
+        private decimal _actualMax;
+        private decimal _actualMin;
 
-    public event Action<decimal> SendResult;
-  }
+        private decimal ActualEstimatedFigure
+        {
+            get{ return decimal.Divide(_actualMax, 2m) + decimal.Divide(_actualMin, 2m);}
+        }
+
+        public void Process(Rating rating)
+        {
+            if (rating == Rating.Start)
+            {
+                _actualMax = decimal.MaxValue;
+                _actualMin = decimal.MinValue;
+            }
+            else
+            {
+                if (rating == Rating.ToHigh) _actualMax = ActualEstimatedFigure;
+                if (rating == Rating.ToLow)  _actualMin = ActualEstimatedFigure;
+            }
+            SendResult(ActualEstimatedFigure);
+        }
+
+        public event Action<decimal> SendResult;
+    }
 }
