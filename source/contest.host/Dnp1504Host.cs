@@ -7,64 +7,65 @@ using System.Diagnostics;
 namespace contest.host
 {
 
-  public class Dnp1504Host : IHost
-  {
-
-    private decimal secretfigure = 0.918237128344444444m;
-    private decimal estimatedfigure = 0m;
-    private int numberofsteps = 100;
-
-    public void Prüfen(object beitrag, string wettbewerbspfad, string beitragsverzeichnis)
+    public class Dnp1504Host : IHost
     {
-      var sut = (IDnp1504Solution)beitrag;
-      Stopwatch sw = new Stopwatch();
 
-      var anfang = new Prüfungsanfang { Wettbewerb = Path.GetFileName(wettbewerbspfad), Beitrag = Path.GetFileName(beitragsverzeichnis) };
-      Anfang(anfang);
+        private decimal secretfigure = Decimal.MaxValue / 2 + 1;
+        private decimal estimatedfigure = 0m;
+        private int numberofsteps = 200;
+        private int usedNumberofSteps = 0;
 
-      sut.SendResult += x =>
-      {
-        estimatedfigure = x;
-      };
-      
-
-      sw.Start();
-      sut.Process(Rating.Start);
-
-      for (int i = 1; i < numberofsteps; i++)
-      {
-        var rating = this.CheckValue(estimatedfigure);
-
-        if (rating == Rating.Exactly) 
+        public void Prüfen(object beitrag, string wettbewerbspfad, string beitragsverzeichnis)
         {
-          Status(new Prüfungsstatus() { Statusmeldung = "**** Hurra: Zahl gefunden ***** " });
-          break;
+            var sut = (IDnp1504Solution)beitrag;
+            Stopwatch sw = new Stopwatch();
+
+            var anfang = new Prüfungsanfang { Wettbewerb = Path.GetFileName(wettbewerbspfad), Beitrag = Path.GetFileName(beitragsverzeichnis) };
+            Anfang(anfang);
+
+            sut.SendResult += x =>
+            {
+                estimatedfigure = x;
+            };
+
+
+            sw.Start();
+            sut.Process(Rating.Start);
+
+            for (usedNumberofSteps = 1; usedNumberofSteps < numberofsteps; usedNumberofSteps++)
+            {
+                var rating = this.CheckValue(estimatedfigure);
+
+                if (rating == Rating.Exactly)
+                {
+                    Status(new Prüfungsstatus() { Statusmeldung = "**** Hurra: Zahl gefunden ***** " });
+                    break;
+                }
+
+                sut.Process(rating);
+            }
+            sw.Stop();
+
+            Status(new Prüfungsstatus() { Statusmeldung = "Gemerkte Zahl: " + secretfigure });
+            Status(new Prüfungsstatus() { Statusmeldung = "Geratene Zahl: " + estimatedfigure });
+
+            Status(new Prüfungsstatus() { Statusmeldung = "Differenz: " + Math.Abs(secretfigure - estimatedfigure) });
+            Status(new Prüfungsstatus() { Statusmeldung = "Mit Anzahl Schritte: " + usedNumberofSteps });
+
+            Ende(new Prüfungsende() { Dauer = sw.Elapsed });
         }
 
-        sut.Process(rating);
-      }
-      sw.Stop();
+        public event Action<Prüfungsanfang> Anfang;
+        public event Action<Prüfungsstatus> Status;
+        public event Action<Prüfungsende> Ende;
+        public event Action<Prüfungsfehler> Fehler;
 
-      Status(new Prüfungsstatus() { Statusmeldung = "Gemerkte Zahl: " + secretfigure });
-      Status(new Prüfungsstatus() { Statusmeldung = "Geratene Zahl: " + estimatedfigure });
 
-      Status(new Prüfungsstatus() { Statusmeldung = "Differenz: " + Math.Abs(secretfigure - estimatedfigure)});
-      Status(new Prüfungsstatus() { Statusmeldung = "Mit Anzahl Schritte: " + numberofsteps });
-      
-        Ende(new Prüfungsende() { Dauer = sw.Elapsed });
+        public Rating CheckValue(decimal estimatedfigure)
+        {
+            if (estimatedfigure == secretfigure) return Rating.Exactly;
+            if (estimatedfigure > secretfigure) return Rating.ToHigh;
+            else return Rating.ToLow;
+        }
     }
-
-    public event Action<Prüfungsanfang> Anfang;
-    public event Action<Prüfungsstatus> Status;
-    public event Action<Prüfungsende> Ende;
-    public event Action<Prüfungsfehler> Fehler;
-  
-  
-    public Rating CheckValue(decimal estimatedfigure)
-    {
-      if (estimatedfigure == secretfigure) return Rating.Exactly;
-      if (estimatedfigure > secretfigure) return Rating.ToHigh;
-      else return Rating.ToLow;
-    }
-  }
 }
