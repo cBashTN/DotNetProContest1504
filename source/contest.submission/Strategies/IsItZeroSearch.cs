@@ -1,6 +1,6 @@
 ﻿using contest.submission.contract;
 
-namespace contest.submission
+namespace contest.submission.Strategies
 {
     public class IsItZeroSearch : SearchStrategy
     {

@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Strategies\DummyBinarySearch.cs" />
+    <Compile Include="Strategies\CleverBinarySearch.cs" />
+    <Compile Include="Strategies\CleverBinarySearchTable.cs" />
+    <Compile Include="Strategies\SimpleBinarySearch.cs" />
     <Compile Include="Interlocutor.cs" />
     <Compile Include="Strategies\IsItZeroSearch.cs" />
     <Compile Include="SearchState.cs" />

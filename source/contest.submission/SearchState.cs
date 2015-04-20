@@ -27,6 +27,8 @@ namespace contest.submission
             ActualMaxIndex = 128;
             ActualMinIndex = 0;
             LastIndex = 0;
+
+            AskedFigures = new List<decimal>();
         }
 
         public void AddNewAskedFigure()

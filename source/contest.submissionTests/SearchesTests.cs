@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using contest.submission;
 using contest.submission.contract;
+using contest.submission.Strategies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace contest.submission.Tests
 {
@@ -19,7 +15,7 @@ namespace contest.submission.Tests
             interviewee.SetSearchStrategy(new IsItZeroSearch());
             interviewee.SearchFigure(Rating.Start);
 
-            Assert.AreEqual(interviewee.FoundFigure(), 0);
+            Assert.AreEqual(0, interviewee.FoundFigure());
         }
 
         [TestMethod()]
@@ -27,10 +23,10 @@ namespace contest.submission.Tests
         {
             var interviewee = new Interlocutor();
 
-            interviewee.SetSearchStrategy(new DummyBinarySearch());
+            interviewee.SetSearchStrategy(new SimpleBinarySearch());
             interviewee.SearchFigure(Rating.ToLow);
 
-            Assert.AreEqual(interviewee.FoundFigure(), Decimal.MaxValue/2m);
+            Assert.AreEqual(Decimal.MaxValue / 2m, interviewee.FoundFigure());
         }
 
         [TestMethod()]
@@ -38,10 +34,33 @@ namespace contest.submission.Tests
         {
             var interviewee = new Interlocutor();
 
-            interviewee.SetSearchStrategy(new DummyBinarySearch());
+            interviewee.SetSearchStrategy(new SimpleBinarySearch());
             interviewee.SearchFigure(Rating.ToHigh);
 
-            Assert.AreEqual(interviewee.FoundFigure(), -1* Decimal.MaxValue / 2m);
+            Assert.AreEqual(-1* Decimal.MaxValue / 2m, interviewee.FoundFigure());
+        }
+
+        [TestMethod()]
+        public void CleverBinarySearch_Test()
+        {
+            var interviewee = new Interlocutor();
+
+            interviewee.SetSearchStrategy(new CleverBinarySearch());
+            Assert.AreEqual(interviewee.FoundFigure(), CleverBinarySearchTable.Table[0]); 
+            interviewee.SearchFigure(Rating.ToLow);
+            Assert.AreEqual(interviewee.FoundFigure(), CleverBinarySearchTable.Table[64]);
+            interviewee.SearchFigure(Rating.ToHigh);
+            Assert.AreEqual(interviewee.FoundFigure(), CleverBinarySearchTable.Table[32]);
+            interviewee.SearchFigure(Rating.ToHigh);
+            Assert.AreEqual(interviewee.FoundFigure(), CleverBinarySearchTable.Table[16]);
+            interviewee.SearchFigure(Rating.ToHigh);
+            Assert.AreEqual(interviewee.FoundFigure(), CleverBinarySearchTable.Table[8]);
+            interviewee.SearchFigure(Rating.ToLow);
+            Assert.AreEqual(interviewee.FoundFigure(), CleverBinarySearchTable.Table[12]);
+            interviewee.SearchFigure(Rating.ToHigh);
+            Assert.AreEqual(interviewee.FoundFigure(), CleverBinarySearchTable.Table[10]);
+            interviewee.SearchFigure(Rating.ToLow);
+            Assert.AreEqual(interviewee.FoundFigure(), CleverBinarySearchTable.Table[11]);
         }
 
     }

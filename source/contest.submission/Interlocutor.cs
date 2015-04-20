@@ -1,4 +1,5 @@
 ﻿using contest.submission.contract;
+using contest.submission.Strategies;
 
 namespace contest.submission
 {

@@ -1,8 +1,8 @@
 ﻿using contest.submission.contract;
 
-namespace contest.submission
+namespace contest.submission.Strategies
 {
-    public class DummyBinarySearch : SearchStrategy
+    public class SimpleBinarySearch : SearchStrategy
     {
         private static decimal ActualEstimatedFigure(SearchState searchState)
         {
