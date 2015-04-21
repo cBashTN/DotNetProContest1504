@@ -10,16 +10,37 @@ namespace contest.submission
         private readonly Interlocutor _interviewee = new Interlocutor();
 
         private int _askedCount = 0;
+        private bool _isMinusFigure;
 
         public void Process(Rating rating)
         {
-            if (_askedCount <= 7)
+            if (_askedCount==1)
             {
-                _interviewee.SetSearchStrategy(new CleverBinarySearch());
+                _isMinusFigure = (rating == Rating.ToHigh);
+            }
+            
+
+            if (_isMinusFigure)
+            {
+                if (_askedCount <= 7)
+                {
+                    _interviewee.SetSearchStrategy(new CleverBinaryMinusSearch());
+                }
+                else
+                {
+                    _interviewee.SetSearchStrategy(new SimpleBinaryMinusSearch());
+                }
             }
             else
             {
-                _interviewee.SetSearchStrategy(new SimpleBinarySearch());
+                if (_askedCount <= 7)
+                {
+                    _interviewee.SetSearchStrategy(new CleverBinarySearch());
+                }
+                else
+                {
+                    _interviewee.SetSearchStrategy(new SimpleBinarySearch());
+                }
             }
 
             _interviewee.SearchFigure(rating);

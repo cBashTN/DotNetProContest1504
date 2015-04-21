@@ -10,9 +10,9 @@ namespace contest.host
     public class Dnp1504Host : IHost
     {
 
-        private decimal secretfigure = Decimal.MaxValue / 2 + 1;
+        private decimal secretfigure = -1123456789000000000.00m;
         private decimal estimatedfigure = 0m;
-        private int numberofsteps = 200;
+        private int numberofsteps = 100;
         private int usedNumberofSteps = 0;
 
         public void Prüfen(object beitrag, string wettbewerbspfad, string beitragsverzeichnis)
@@ -28,13 +28,13 @@ namespace contest.host
                 estimatedfigure = x;
             };
 
-
             sw.Start();
             sut.Process(Rating.Start);
 
             for (usedNumberofSteps = 1; usedNumberofSteps < numberofsteps; usedNumberofSteps++)
             {
                 var rating = this.CheckValue(estimatedfigure);
+                Console.WriteLine(usedNumberofSteps+" : "+estimatedfigure);
 
                 if (rating == Rating.Exactly)
                 {
@@ -49,7 +49,7 @@ namespace contest.host
             Status(new Prüfungsstatus() { Statusmeldung = "Gemerkte Zahl: " + secretfigure });
             Status(new Prüfungsstatus() { Statusmeldung = "Geratene Zahl: " + estimatedfigure });
 
-            Status(new Prüfungsstatus() { Statusmeldung = "Differenz: " + Math.Abs(secretfigure - estimatedfigure) });
+            Status(new Prüfungsstatus() { Statusmeldung = "Differenz:     " + Math.Abs(secretfigure - estimatedfigure) });
             Status(new Prüfungsstatus() { Statusmeldung = "Mit Anzahl Schritte: " + usedNumberofSteps });
 
             Ende(new Prüfungsende() { Dauer = sw.Elapsed });
