@@ -10,7 +10,7 @@ namespace contest.host
     public class Dnp1504Host : IHost
     {
 
-        private decimal secretfigure = -1123456789000000000.00m;
+        private decimal secretfigure = -1245000000000.0000m;
         private decimal estimatedfigure = 0m;
         private int numberofsteps = 100;
         private int usedNumberofSteps = 0;

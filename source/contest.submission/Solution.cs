@@ -16,10 +16,12 @@ namespace contest.submission
         {
             if (_askedCount==1)
             {
-                _isMinusFigure = (rating == Rating.ToHigh);
+                if (rating == Rating.ToHigh)
+                {
+                    _isMinusFigure = true;
+                }
             }
             
-
             if (_isMinusFigure)
             {
                 if (_askedCount <= 7)

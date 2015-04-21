@@ -11,8 +11,8 @@ namespace contest.submission.Strategies
 
         public override SearchState Search(SearchState searchState, Rating actualRating)
         {
-            if (actualRating == Rating.ToLow) searchState.ActualMax = ActualEstimatedFigure(searchState);
-            if (actualRating == Rating.ToHigh) searchState.ActualMin = ActualEstimatedFigure(searchState);
+            if (actualRating == Rating.ToHigh) searchState.ActualMax = ActualEstimatedFigure(searchState);
+            if (actualRating == Rating.ToLow) searchState.ActualMin = ActualEstimatedFigure(searchState);
 
             searchState.ActualEstimatedFigure = ActualEstimatedFigure(searchState);
 
