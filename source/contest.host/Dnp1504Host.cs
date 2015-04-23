@@ -10,7 +10,7 @@ namespace contest.host
     public class Dnp1504Host : IHost
     {
 
-        private decimal secretfigure = -1245000000000.0000m;
+        private decimal secretfigure = 100000001m;
         private decimal estimatedfigure = 0m;
         private int numberofsteps = 100;
         private int usedNumberofSteps = 0;
@@ -34,7 +34,7 @@ namespace contest.host
             for (usedNumberofSteps = 1; usedNumberofSteps < numberofsteps; usedNumberofSteps++)
             {
                 var rating = this.CheckValue(estimatedfigure);
-                Console.WriteLine(usedNumberofSteps+" : "+estimatedfigure);
+               // Console.WriteLine(usedNumberofSteps+" : "+estimatedfigure);
 
                 if (rating == Rating.Exactly)
                 {

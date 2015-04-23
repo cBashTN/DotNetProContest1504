@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace contest.submission.Strategies
+namespace contest.submission
 {
     static public class CleverBinarySearchTable
     {
-        private static readonly Dictionary<int, decimal> _distribution = new Dictionary<int, decimal>(129)
+        private static readonly Dictionary<int, decimal> Distribution = new Dictionary<int, decimal>(129)
             {
                 {0, Decimal.Zero},
                 {1, 1.61564298849582m},
@@ -140,7 +140,7 @@ namespace contest.submission.Strategies
 
         public static Dictionary<int, decimal> Table
         {
-            get { return _distribution; }
+            get { return Distribution; }
         }
     }
 }

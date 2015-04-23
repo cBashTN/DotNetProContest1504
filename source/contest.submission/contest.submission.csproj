@@ -45,10 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PatternSearchHelper.cs" />
     <Compile Include="Strategies\CleverBinaryMinusSearch.cs" />
     <Compile Include="Strategies\CleverBinarySearch.cs" />
-    <Compile Include="Strategies\CleverBinarySearchTable.cs" />
+    <Compile Include="CleverBinarySearchTable.cs" />
     <Compile Include="Strategies\SimpleBinaryMinusSearch.cs" />
+    <Compile Include="Strategies\PatternSearch.cs" />
     <Compile Include="Strategies\SimpleBinarySearch.cs" />
     <Compile Include="Interlocutor.cs" />
     <Compile Include="Strategies\IsItZeroSearch.cs" />

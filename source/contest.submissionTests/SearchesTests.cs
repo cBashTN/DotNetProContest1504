@@ -63,5 +63,28 @@ namespace contest.submission.Tests
             Assert.AreEqual(interviewee.FoundFigure(), CleverBinarySearchTable.Table[11]);
         }
 
+
+        [TestMethod()]
+        public void PatternSearchHelper_HasPattern1_Test()
+        {
+            decimal num = 123.4555567m;
+            Assert.IsTrue(PatternSearchHelper.HasPattern(num));
+        }
+
+        [TestMethod()]
+        public void PatternSearchHelper_HasPattern2_Test()
+        {
+            decimal num = 123.3335567m;
+            Assert.IsTrue(PatternSearchHelper.HasPattern(num));
+        }
+
+        [TestMethod()]
+        public void PatternSearchHelper_HasPattern3_Test()
+        {
+            decimal num = 144.4555666m;
+            Assert.IsFalse(PatternSearchHelper.HasPattern(num));
+        }
+
+        
     }
 }

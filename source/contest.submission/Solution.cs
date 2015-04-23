@@ -14,14 +14,14 @@ namespace contest.submission
 
         public void Process(Rating rating)
         {
-            if (_askedCount==1)
+            if (_askedCount == 1)
             {
                 if (rating == Rating.ToHigh)
                 {
                     _isMinusFigure = true;
                 }
             }
-            
+
             if (_isMinusFigure)
             {
                 if (_askedCount <= 7)
@@ -46,7 +46,15 @@ namespace contest.submission
             }
 
             _interviewee.SearchFigure(rating);
-           
+
+            if (PatternSearchHelper.HasPattern(_interviewee.FoundFigure()))
+            {
+                //_interviewee.SetSearchStrategy(new PatternSearch());
+                //_interviewee.SearchFigure(rating);
+               // Console.WriteLine("Possible pattern detected.");
+            }
+
+            Console.WriteLine("Is it " + _interviewee.FoundFigure() + " ?");
             SendResult(_interviewee.FoundFigure());
             _askedCount++;
 
